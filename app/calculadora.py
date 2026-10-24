@@ -1,7 +1,5 @@
 """Operaciones numéricas mínimas para el laboratorio Cloud Forge."""
 
-import os
-
 
 def sumar(a: int, b: int) -> int:
     return a + b
