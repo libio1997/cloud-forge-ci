@@ -1,59 +1,28 @@
 # Cloud Forge — Laboratorio 2 | Pipeline seguro
 
-Proyecto didáctico del **Módulo 3 · Sesión 2**: CI con Ruff, pytest, Bandit y Trivy. Cinco controles independientes bloquean el empaquetado si fallan.
+CI con Ruff, pytest, Bandit y Trivy. Autor: **libio**.
 
-## Estructura
+## Resultado de las pruebas
 
-```
-app/calculadora.py          # sumar + interpretar_entero
-tests/test_calculadora.py   # 3 pruebas
-ci/check.sh                 # lint | tests | sast | secrets | sca
-security/trivy-secret.yaml  # regla CFDEMO_*
-.github/workflows/secure-ci.yml
-entrega/                    # matriz, reportes y reflexión
-```
+Archivo: [`entrega/matriz_experimentos.csv`](entrega/matriz_experimentos.csv)
 
-## Requisitos
+| Experimento | Resultado | Regla / aviso | Package | Commit fallo | Commit fix |
+|-------------|-----------|---------------|---------|--------------|------------|
+| Línea base | success | — | habilitado | `b3d5cb1` | `b3d5cb1` |
+| 1 · Lint | fallido | F401 os unused | omitido | `9b21334` | `3b6e497` |
+| 2 · Tests | fallido | assert -1 == 5 | omitido | `0a6ddbf` | `a33c6b3` |
+| 3 · SAST | fallido | B307 eval | omitido | `93ea973` | `b97d84a` |
+| 4 · Secrets | fallido | cloud-forge-demo HIGH | omitido | `f012008` | `4a175ed` |
+| 5 · SCA | fallido | CVE-2018-18074 | omitido | `1652df4` | `a847100` |
+| Verificación final | success | — | habilitado | `a847100` | `a847100` |
 
-- Python 3.11+ (en CI: 3.11)
-- GitHub Actions (recomendado) o, en local: venv + Trivy (binario o Docker)
-
-## Uso local
+## Controles locales
 
 ```bash
-python -m venv .venv
-source .venv/bin/activate   # Windows: .venv\Scripts\Activate.ps1
 python -m pip install -r requirements-dev.txt
-
-# Controles (mismo script que Actions)
 bash ci/check.sh lint
 bash ci/check.sh tests
 bash ci/check.sh sast
-bash ci/check.sh secrets   # requiere Trivy
-bash ci/check.sh sca       # requiere Trivy + DB
+bash ci/check.sh secrets
+bash ci/check.sh sca
 ```
-
-Instalar Trivy (alternativa a Docker):
-
-```bash
-curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh \
-  | sh -s -- -b ~/.local/bin
-export PATH="$HOME/.local/bin:$PATH"
-```
-
-## GitHub Actions
-
-Al publicar en `main`, el workflow **Secure CI** ejecuta la matriz `lint, tests, sast, secrets, sca` (`fail-fast: false`). Solo si los cinco pasan, el job `package` genera `dist/cloud-forge.zip`.
-
-## Entrega
-
-Ver `entrega/`:
-
-- `matriz_experimentos.csv` — evidencia de los 5 fallos y correcciones
-- `respuestas_rubrica.md` — reflexión (rúbrica §16)
-- `reportes/` — salidas locales de línea base, fallos y verificación final
-- `hashes_commits.md` — SHA de cada commit del laboratorio
-
-## Seguridad
-
-No hay credenciales reales. El token `CFDEMO_…` es sintético y no otorga acceso a ningún servicio. `requirements-dev.txt` se excluye del SCA solo en este ejercicio didáctico.

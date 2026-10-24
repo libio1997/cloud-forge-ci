@@ -1,0 +1,8 @@
+experimento,commit_fallo,control_esperado,control_observado,regla_o_aviso,archivo_linea_o_paquete,estado_package,correccion,commit_corregido,enlace_ejecucion,nombre_reporte
+linea_base,b3d5cb1e7f71fdf654d7271f69b39b2b72f6ad9f,todos verdes,success,N/A,N/A,habilitado,N/A,b3d5cb1e7f71fdf654d7271f69b39b2b72f6ad9f,https://github.com/libio1997/cloud-forge-ci/actions,baseline
+1_lint,9b2133415fdb1e19e6aa809d96ece284bd1d74ed,control-lint fallido,fallido,F401,app/calculadora.py:3,omitido,eliminar import os,3b6e497cd4c3970c5f993612dd57f3749075fb69,https://github.com/libio1997/cloud-forge-ci/actions,exp1-lint
+2_tests,0a6ddbf795ec2a554cc9af2930b41fc3da4deb25,control-tests fallido,fallido,assert -1 == 5,test_suma,omitido,restaurar a+b,a33c6b31a7f9330d2926a13fd14ab568b6b25528,https://github.com/libio1997/cloud-forge-ci/actions,exp2-tests
+3_sast,93ea97340a81815b1abb134e5aa4fb3b84f4748a,control-sast fallido,fallido,B307 eval,app/calculadora.py,omitido,eliminar eval,b97d84a692d65479e115827fac7a0f7d8a91a878,https://github.com/libio1997/cloud-forge-ci/actions,exp3-sast
+4_secrets,f0120087558f8f7b81c76dd5b908f22035098d09,control-secrets fallido,fallido,cloud-forge-demo HIGH,app/demo.env,omitido,eliminar demo.env,4a175ed25fa6bb2da62719c579350a07479e4cac,https://github.com/libio1997/cloud-forge-ci/actions,exp4-secrets
+5_sca,1652df49d70dfcfb04490eff93ec8ffdfdeb76bc,control-sca fallido,fallido,CVE-2018-18074,requests==2.19.1,omitido,quitar requests,a847100ab7fa61a847822869618b60cb3558d7c4,https://github.com/libio1997/cloud-forge-ci/actions,exp5-sca
+verificacion_final,a847100ab7fa61a847822869618b60cb3558d7c4,cinco controles + package,success,N/A,N/A,habilitado,estado limpio,a847100ab7fa61a847822869618b60cb3558d7c4,https://github.com/libio1997/cloud-forge-ci/actions,final
