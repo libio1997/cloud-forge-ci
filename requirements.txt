@@ -1,2 +1,2 @@
-# Dependencia obsoleta solo para escaneo; no instalar.
-requests==2.19.1
+# La aplicación usa solo la biblioteca estándar de Python.
+# No se declaran dependencias de producción en este ejercicio.
